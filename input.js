@@ -25,6 +25,9 @@ const setupInput = function(conn) {
 
       case 'a':
       connection.write("Move: left");
+
+      case 'r':
+      connection.write("Say: SO?");
     }
   })
   return stdin;
