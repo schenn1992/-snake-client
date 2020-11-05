@@ -1,27 +1,31 @@
 const { Console } = require("console");
 
-const setupInput = function() {
+let connection;
+
+const setupInput = function(conn) {
+  connection = conn;
   const stdin = process.stdin;
   stdin.setRawMode(true);
   stdin.setEncoding('utf8');
   stdin.resume();
   const handleUserInput = stdin.on('data', (key) => {
     
-    if (key === '\u0003') {
+    switch(key) {
+      case '\u0003':
       process.exit();
+
+      case 'w':
+      connection.write("Move: up");
+
+      case 's':
+      connection.write("Move: down");
+
+      case 'd':
+      connection.write("Move: right");
+
+      case 'a':
+      connection.write("Move: left");
     }
-    if (key === 'w') {
-      console.log('up')
-    }; 
-    if (key === 's') {
-      console.log('down')
-    }; 
-    if (key === 'd') {
-      console.log('right')
-    }; 
-    if (key === 'a') {
-      console.log('left')
-    }; 
   })
   return stdin;
 };
@@ -30,5 +34,5 @@ let exportFunc = {
   setupInput,
 };
 
-setupInput();
+//setupInput();
 module.exports = exportFunc;
